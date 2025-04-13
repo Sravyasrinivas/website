@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Data Warehouse Engineer</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Variables */
+        :root {
+            --primary: #0066cc;
+            --secondary: #f8f9fa;
+            --dark: #343a40;
+            --light: #f8f9fa;
+            --accent: #17a2b8;
+            --text: #212529;
+            --border: #dee2e6;
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #fff;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #004999;
+            text-decoration: underline;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+            margin-bottom: 30px;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+        
+        .profile-content h1 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        /* About */
+        .about p {
+            font-size: 1.1rem;
+        }
+        
+        /* Experience */
+        .experience-item {
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--primary);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            left: -7.5px;
+            top: 10px;
+        }
+        
+        .experience-date {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-company {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-role {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-desc {
+            margin-top: 0.5rem;
+        }
+        
+        .experience-tech {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            background-color: #e9ecef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+        
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-desc {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-links a {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .project-links a:hover {
+            background-color: #004999;
+            text-decoration: none;
+        }
+        
+        /* Contact */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary);
+                padding: 1rem 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="profile">
+                <img src="/api/placeholder/150/150" alt="Your Profile Photo" class="profile-image">
+                <div class="profile-content">
+                    <h1>Your Name</h1>
+                    <div class="profile-title">Data Warehouse Engineer</div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Your Location</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">YN</div>
+            <button class="hamburger">☰</button>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/resume.pdf" target="_blank">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>
+                Welcome! I'm a passionate Data Warehouse Engineer with expertise in designing, implementing, and maintaining data warehousing solutions. 
+                With a strong background in data modeling, ETL processes, and SQL, I specialize in transforming complex business requirements into 
+                efficient and scalable data architectures.
+            </p>
+            <p>
+                My goal is to help organizations leverage their data assets effectively by creating robust data pipelines and analytics platforms 
+                that enable informed decision-making. I'm particularly interested in [your specific interests, e.g., real-time data processing, 
+                data governance, cloud data warehousing].
+            </p>
+        </section>
+        
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2>Work Experience</h2>
+            
+            <!-- Experience Item 1 -->
+            <div class="experience-item">
+                <div class="experience-date">Jan 2022 - Present</div>
+                <div class="experience-company">Company Name</div>
+                <div class="experience-role">Senior Data Warehouse Engineer</div>
+                <div class="experience-desc">
+                    <ul>
+                        <li>Designed and implemented a cloud-based data warehouse architecture on [platform], reducing query response times by 40%.</li>
+                        <li>Led the migration of legacy data systems to a modern data platform, resulting in a 30% reduction in operational costs.</li>
+                        <li>Developed automated ETL processes to integrate data from 15+ disparate sources, ensuring data consistency and quality.</li>
+                        <li>Collaborated with business stakeholders to define KPIs and implemented dashboards used by 200+ users across the organization.</li>
+                    </ul>
+                </div>
+                <div class="experience-tech">
+                    <span class="tech-tag">Snowflake</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">dbt</span>
+                    <span class="tech-tag">Airflow</span>
+                </div>
+            </div>
+            
+            <!-- Experience Item 2 -->
+            <div class="experience-item">
+                <div class="experience-date">Mar 2020 - Dec 2021</div>
+                <div class="experience-company">Previous Company</div>
+                <div class="experience-role">Data Engineer</div>
+                <div class="experience-desc">
+                    <ul>
+                        <li>Developed and maintained ETL pipelines using [tools] to process 100GB+ of daily transaction data.</li>
+                        <li>Optimized SQL queries and data models, improving reporting performance by 50%.</li>
+                        <li>Implemented data quality monitoring frameworks that reduced data incidents by 35%.</li>
+                        <li>Collaborated with cross-functional teams to develop data solutions for business intelligence needs.</li>
+                    </ul>
+                </div>
+                <div class="experience-tech">
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">SSIS</span>
+                    <span class="tech-tag">Power BI</span>
+                    <span class="tech-tag">T-SQL</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <!-- Data Warehousing -->
+                <div class="skill-category">
+                    <h3>Data Warehousing</h3>
+                    <ul class="skill-list">
+                        <li>Snowflake</li>
+                        <li>AWS Redshift</li>
+                        <li>Google BigQuery</li>
+                        <li>Azure Synapse</li>
+                        <li>Data Modeling</li>
+                        <li>Dimensional Modeling</li>
+                    </ul>
+                </div>
+                
+                <!-- ETL/ELT -->
+                <div class="skill-category">
+                    <h3>ETL/ELT & Orchestration</h3>
+                    <ul class="skill-list">
+                        <li>Apache Airflow</li>
+                        <li>dbt</li>
+                        <li>AWS Glue</li>
+                        <li>SSIS</li>
+                        <li>Talend</li>
+                        <li>Fivetran</li>
+                    </ul>
+                </div>
+                
+                <!-- Programming & Scripting -->
+                <div class="skill-category">
+                    <h3>Programming & Scripting</h3>
+                    <ul class="skill-list">
+                        <li>SQL (Advanced)</li>
+                        <li>Python</li>
+                        <li>Bash/Shell</li>
+                        <li>PySpark</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </div>
+                
+                <!-- Cloud Platforms -->
+                <div class="skill-category">
+                    <h3>Cloud Platforms</h3>
+                    <ul class="skill-list">
+                        <li>AWS</li>
+                        <li>Azure</li>
+                        <li>Google Cloud Platform</li>
+                        <li>Terraform</li>
+                        <li>Docker</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <img src="/api/placeholder/400/180" alt="Project 1" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Enterprise Data Warehouse</h3>
+                        <p class="project-desc">
+                            Designed and implemented a modern cloud data warehouse architecture using Snowflake, 
+                            supporting analytics needs for an organization with 500+ users.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Snowflake</span>
+                            <span class="tech-tag">dbt</span>
+                            <span class="tech-tag">Airflow</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank">Case Study</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <img src="/api/placeholder/400/180" alt="Project 2" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Real-time Data Pipeline</h3>
+                        <p class="project-desc">
+                            Built an end-to-end real-time data processing pipeline using Kafka and Spark Streaming 
+                            to enable near real-time analytics for customer interactions.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Kafka</span>
+                            <span class="tech-tag">Spark</span>
+                            <span class="tech-tag">AWS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank">Demo</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <img src="/api/placeholder/400/180" alt="Project 3" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Data Quality Framework</h3>
+                        <p class="project-desc">
+                            Developed an automated data quality monitoring system that validates data integrity 
+                            across the data warehouse and alerts on anomalies.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Great Expectations</span>
+                            <span class="tech-tag">dbt</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank">Blog Post</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:your.email@example.com">your.email@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (123) 456-7890</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>City, Country</span>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://medium.com/@yourusername" target="_blank"><i class="fab fa-medium-m"></i></a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-text">
+                © 2025 Your Name. All rights reserved.
+            </div>
+            <div>
+                <small>Built with HTML, CSS, and ❤️</small>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                        }
+                    }
+                });
+            });
+            
+            // Highlight active navigation section
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-links a');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${current}`) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
